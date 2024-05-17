@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: Myapp()));
 
-class Myapp extends StatelessWidget {
+class Myapp extends StatefulWidget {
   const Myapp({super.key});
 
+  @override
+  State<Myapp> createState() => _MyappState();
+}
+
+class _MyappState extends State<Myapp> {
+  int c = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,6 +18,16 @@ class Myapp extends StatelessWidget {
         title: Text("Id Card"),
         backgroundColor: Colors.blue,
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            c += 1;
+            print(c); 
+          });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 0.0),
@@ -47,7 +63,7 @@ class Myapp extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '2',
+              '$c',
               style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.red,
