@@ -5,6 +5,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:todoapp/pages/signup.dart';
+import 'package:todoapp/service/AuthService.dart';
 
 class MobileAuth extends StatefulWidget {
   const MobileAuth({super.key});
@@ -16,6 +17,10 @@ class MobileAuth extends StatefulWidget {
 class _MobileAuthState extends State<MobileAuth> {
   int start = 30;
   Timer? _timer;
+  String verificationId = "";
+  String smsCode = "";
+  AuthClass auth = AuthClass();
+  TextEditingController phoneController = TextEditingController();
 
   void startTimer() {
     _timer?.cancel();
@@ -47,12 +52,9 @@ class _MobileAuthState extends State<MobileAuth> {
                           MaterialPageRoute(builder: (builder) => SignupPage()),
                           (route) => false)
                     },
-                child: InkWell(
-                  onTap: () => {startTimer()},
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
                 )),
             SizedBox(
               width: 10,
@@ -75,6 +77,7 @@ class _MobileAuthState extends State<MobileAuth> {
               Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 child: TextField(
+                  controller: phoneController,
                   decoration: InputDecoration(
                     enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey)),
@@ -85,7 +88,13 @@ class _MobileAuthState extends State<MobileAuth> {
                     hintText: "Enter Your Mobile Number",
                     prefixText: "(+91)  ",
                     suffixIcon: InkWell(
-                        onTap: () => {startTimer()}, child: Icon(Icons.send)),
+                        onTap: () async => {
+                              await auth.verifyPhoneNumber(
+                                  "+91 ${phoneController.text}",
+                                  context,
+                                  setData)
+                            },
+                        child: Icon(Icons.send)),
                   ),
                 ),
               ),
@@ -100,7 +109,7 @@ class _MobileAuthState extends State<MobileAuth> {
                     ),
                   ),
                   Text(
-                    "Entert 6 digit OTP",
+                    "Enter 6 digit OTP",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -124,7 +133,9 @@ class _MobileAuthState extends State<MobileAuth> {
                 textFieldAlignment: MainAxisAlignment.spaceAround,
                 fieldStyle: FieldStyle.underline,
                 onCompleted: (pin) {
-                  print("Completed: " + pin);
+                  setState(() {
+                    smsCode = pin;
+                  });
                 },
               ),
               SizedBox(
@@ -139,7 +150,7 @@ class _MobileAuthState extends State<MobileAuth> {
                       text: "00:$start",
                       style: TextStyle(fontSize: 20, color: Colors.red)),
                   TextSpan(
-                      text: "sec",
+                      text: " sec",
                       style: TextStyle(fontSize: 20, color: Colors.amber))
                 ]),
               ),
@@ -147,7 +158,9 @@ class _MobileAuthState extends State<MobileAuth> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  auth.signInWithPhoneNumber(verificationId, smsCode, context)
+                },
                 child: Text(
                   "Let's Go",
                   style: TextStyle(
@@ -164,5 +177,12 @@ class _MobileAuthState extends State<MobileAuth> {
         ),
       ),
     );
+  }
+
+  void setData(String verificationId) {
+    setState(() {
+      this.verificationId = verificationId;
+    });
+    startTimer();
   }
 }

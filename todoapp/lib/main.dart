@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
     if (token != null) {
       setState(() {
         currentpage = HomePage();
-        
       });
     }
   }

@@ -120,9 +120,9 @@ class SignInPage extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                SquareTile(
-                  imagepath: 'lib/images/phone.png',
-                )
+                // SquareTile(
+                //   imagepath: 'lib/images/phone.png',
+                // )
               ],
             ),
             SizedBox(

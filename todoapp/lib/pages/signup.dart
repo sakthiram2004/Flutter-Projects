@@ -119,15 +119,15 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(
                   width: 30,
                 ),
-                InkWell(
-                    onTap: () => {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => MobileAuth()),
-                              (route) => false)
-                        },
-                    child: SquareTile(imagepath: 'lib/images/phone.png'))
+                // InkWell(
+                //     onTap: () => {
+                //           Navigator.pushAndRemoveUntil(
+                //               context,
+                //               MaterialPageRoute(
+                //                   builder: (builder) => MobileAuth()),
+                //               (route) => false)
+                //         },
+                //     child: SquareTile(imagepath: 'lib/images/phone.png'))
               ],
             ),
             SizedBox(
