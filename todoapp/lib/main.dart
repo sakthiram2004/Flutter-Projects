@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:todoapp/pages/FirstPage.dart';
 import 'package:todoapp/pages/Home.dart';
 import 'package:todoapp/pages/signup.dart';
 import 'package:todoapp/service/AuthService.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     String? token = await authClass.getToken();
     if (token != null) {
       setState(() {
-        currentpage = HomePage();
+        currentpage = FirstPage1();
       });
     }
   }

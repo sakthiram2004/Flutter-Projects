@@ -78,7 +78,9 @@ class SignInPage extends StatelessWidget {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () => {signin()},
+              onPressed: () =>
+                  {print("p-------------"),
+                   AuthClass().googleSignin(context)},
               child: Text(
                 'Sign In',
                 style: TextStyle(fontSize: 20.0),

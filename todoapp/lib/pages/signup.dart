@@ -3,6 +3,7 @@ import 'package:todoapp/components/My_textfield.dart';
 import 'package:todoapp/images/square.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:todoapp/pages/AuthwithMobile.dart';
+import 'package:todoapp/pages/FirstPage.dart';
 
 import 'package:todoapp/pages/signin.dart';
 import 'package:todoapp/service/AuthService.dart';
@@ -77,7 +78,13 @@ class _SignupPageState extends State<SignupPage> {
               height: 15,
             ),
             ElevatedButton(
-              onPressed: () => {signup()},
+              onPressed: () => {
+                print("ssssssssss"),
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (builder) => FirstPage1()),
+                    (route) => false)
+              },
               child: Text(
                 'Sign up',
                 style: TextStyle(fontSize: 20.0),
